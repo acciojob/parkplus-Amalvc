@@ -82,6 +82,7 @@ public class ReservationServiceImpl implements ReservationService {
           if(flag2==false){
               throw new Exception("Cannot make reservation");
           }
+          assert chosen!=null;
           chosen.setOccupied(true);
           Reservation reservation=new Reservation();
           reservation.setUser(user);
