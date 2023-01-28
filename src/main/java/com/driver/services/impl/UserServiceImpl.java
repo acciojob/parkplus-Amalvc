@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
         User u=userRepository4.findById(userId).get();
         u.setPassword(password);
         userRepository4.save(u);
-        return userRepository4.findById(userId).get();
+        return u;
 
     }
 
