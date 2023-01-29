@@ -24,7 +24,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation reserveSpot(Integer userId, Integer parkingLotId, Integer timeInHours, Integer numberOfWheels) throws Exception {
       try{
-          if(!userRepository3.findById(userId).isPresent()||!parkingLotRepository3.findById(parkingLotId).isPresent()){
+          if(!userRepository3.findById(userId).isPresent() || !parkingLotRepository3.findById(parkingLotId).isPresent()){
               throw new Exception("Cannot make reservation");
           }
           User user=userRepository3.findById(userId).get();
@@ -37,7 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
                   break;
               }
           }
-          if(flag==false){
+          if(!flag){
               throw new Exception("Cannot make reservation");
           }
           SpotType requested;
@@ -57,20 +57,20 @@ public class ReservationServiceImpl implements ReservationService {
           Spot chosen=null;
 
           for(Spot s:list){
-              if(requested.equals(SpotType.OTHERS) && s.equals(SpotType.OTHERS)){
+              if(requested.equals(SpotType.OTHERS) && s.getSpotType().equals(SpotType.OTHERS)){
                   if(s.getPricePerHour()*timeInHours<price && !s.getOccupied()){
                       price=s.getPricePerHour()*timeInHours;
                       chosen=s;
                       flag2=true;
                   }
-                  else if(requested.equals(SpotType.TWO_WHEELER) && s.equals(SpotType.OTHERS)||s.equals(SpotType.TWO_WHEELER)||s.equals(SpotType.FOUR_WHEELER)){
+                  else if(requested.equals(SpotType.TWO_WHEELER) && s.getSpotType().equals(SpotType.OTHERS)||s.getSpotType().equals(SpotType.TWO_WHEELER)||s.getSpotType().equals(SpotType.FOUR_WHEELER)){
                       if(s.getPricePerHour()*timeInHours<price && !s.getOccupied()){
                           price=s.getPricePerHour()*timeInHours;
                           chosen=s;
                           flag2=true;
                       }
                   }
-                  else if(requested.equals(SpotType.FOUR_WHEELER)&&s.equals(SpotType.OTHERS)||s.equals(SpotType.FOUR_WHEELER)){
+                  else if(requested.equals(SpotType.FOUR_WHEELER)&&s.getSpotType().equals(SpotType.OTHERS)||s.getSpotType().equals(SpotType.FOUR_WHEELER)){
                       if(s.getPricePerHour()*timeInHours<price && !s.getOccupied()){
                           price=s.getPricePerHour()*timeInHours;
                           chosen=s;
