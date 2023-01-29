@@ -85,9 +85,10 @@ public class ReservationServiceImpl implements ReservationService {
           assert chosen!=null;
           chosen.setOccupied(true);
           Reservation reservation=new Reservation();
-          reservation.setUser(user);
+
           reservation.setNumberOfHours(timeInHours);
           reservation.setSpot(chosen);
+          reservation.setUser(user);
           chosen.getReservationList().add(reservation);
           user.getReservationList().add(reservation);
           userRepository3.save(user);
