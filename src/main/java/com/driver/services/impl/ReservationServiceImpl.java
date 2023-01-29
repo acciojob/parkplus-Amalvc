@@ -57,28 +57,29 @@ public class ReservationServiceImpl implements ReservationService {
           Spot chosen=null;
 
           for(Spot s:list){
-              if(requested.equals(SpotType.OTHERS) && s.getSpotType().equals(SpotType.OTHERS)){
-                  if(s.getPricePerHour()*timeInHours<price && !s.getOccupied()){
-                      price=s.getPricePerHour()*timeInHours;
-                      chosen=s;
-                      flag2=true;
-                  }
-                  else if(requested.equals(SpotType.TWO_WHEELER) && s.getSpotType().equals(SpotType.OTHERS)||s.getSpotType().equals(SpotType.TWO_WHEELER)||s.getSpotType().equals(SpotType.FOUR_WHEELER)){
-                      if(s.getPricePerHour()*timeInHours<price && !s.getOccupied()){
-                          price=s.getPricePerHour()*timeInHours;
-                          chosen=s;
-                          flag2=true;
-                      }
-                  }
-                  else if(requested.equals(SpotType.FOUR_WHEELER)&&s.getSpotType().equals(SpotType.OTHERS)||s.getSpotType().equals(SpotType.FOUR_WHEELER)){
-                      if(s.getPricePerHour()*timeInHours<price && !s.getOccupied()){
-                          price=s.getPricePerHour()*timeInHours;
-                          chosen=s;
-                          flag2=true;
-                      }
+              if(requested.equals(SpotType.OTHERS) && s.getSpotType().equals(SpotType.OTHERS)) {
+                  if (s.getPricePerHour() * timeInHours < price && !s.getOccupied()) {
+                      price = s.getPricePerHour() * timeInHours;
+                      chosen = s;
+                      flag2 = true;
                   }
               }
+              else if(requested.equals(SpotType.TWO_WHEELER) && s.getSpotType().equals(SpotType.OTHERS)||s.getSpotType().equals(SpotType.TWO_WHEELER)||s.getSpotType().equals(SpotType.FOUR_WHEELER)){
+                      if(s.getPricePerHour()*timeInHours<price && !s.getOccupied()){
+                          price=s.getPricePerHour()*timeInHours;
+                          chosen=s;
+                          flag2=true;
+                      }
+              }
+              else if(requested.equals(SpotType.FOUR_WHEELER)&&s.getSpotType().equals(SpotType.OTHERS)||s.getSpotType().equals(SpotType.FOUR_WHEELER)){
+                      if(s.getPricePerHour()*timeInHours<price && !s.getOccupied()){
+                          price=s.getPricePerHour()*timeInHours;
+                          chosen=s;
+                          flag2=true;
+                      }
+              }
           }
+
           if(flag2==false){
               throw new Exception("Cannot make reservation");
           }
